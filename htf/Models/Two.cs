@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace htf.Models
 {
-    public class One
-
+    public class Two
     {
         public string question { get; set; }
         public string answer { get; set; }

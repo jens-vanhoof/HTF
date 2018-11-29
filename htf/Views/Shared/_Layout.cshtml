@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - htf</title>
+    <title>Hack O' Holics | @ViewData["Title"]</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -26,13 +26,36 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">htf</a>
+                <a asp-area="" asp-controller="Challenge" asp-action="Index" class="navbar-brand">Hack O' Holics</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Challenge" asp-action="Index">Dashboard</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Challenges <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 1</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="Two">Challenge 2</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 3</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 4</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 5</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 6</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 7</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 8</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 9</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 10</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 11</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 12</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 13</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 14</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 15</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 16</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 17</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 18</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 19</a></li>
+                            <li><a asp-area="" asp-controller="Challenge" asp-action="One">Challenge 20</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -42,9 +65,9 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        <hr class="htf-footer" />
         <footer>
-            <p>&copy; 2018 - htf</p>
+            <p class="text-center">&copy; 2018 - Hack The Future - Hack O' Holics</p>
         </footer>
     </div>
 

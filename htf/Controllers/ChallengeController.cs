@@ -133,6 +133,16 @@ namespace htf.Controllers
             obj.answer = som.ToString();
         }
 
+        public async Task<IActionResult> Index()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> One()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> Two()
         {
             await GetTwo();
