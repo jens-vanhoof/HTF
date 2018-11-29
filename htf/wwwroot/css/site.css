@@ -35,3 +35,11 @@ body {
         display: none;
     }
 }
+
+.htf-title {
+    margin: 40px 0 40px 0;
+}
+
+.htf-footer {
+    margin-top: 40px;
+}
