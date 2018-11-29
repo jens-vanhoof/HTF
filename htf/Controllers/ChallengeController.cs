@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using htf.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using RestSharp;
 
 namespace htf.Controllers
 {
@@ -49,7 +52,7 @@ namespace htf.Controllers
             public Answer answer { get; set; }
         }
 
-        public class RootObject
+        public class ResponseGet
         {
             public string id { get; set; }
             public string identifier { get; set; }
@@ -58,41 +61,86 @@ namespace htf.Controllers
             public Question question { get; set; }
             public Example example { get; set; }
         }
+        public class Anwser
+        {
+            public string name { get; set; }
+            public string data { get; set; }
+        }
+
+        public class Body
+        {
+            public string challengeId { get; set; }
+            public List<Anwser> values { get; set; }
+        }
 
         private readonly IHttpClientFactory _clientFactory;
+        public ResponseGet ChallengeTwo { get; private set; }
 
         public ChallengeController(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
         }
 
-        public async Task<RootObject> GetOne()
+        public async Task PostTwo(Two anwser,string veld)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get,
-                "http://htf2018.azurewebsites.net/challenges/593bc0a2e0dfdc53b239bc2a96ab0fd5");
-            request.Headers.Add("htf-identification", "ODc2ZjM2NjYtZGUyNy00ZDczLThkN2QtOTY4ZTA2NzY3MGMy");
-
-            var client = _clientFactory.CreateClient();
-
-            var response = await client.SendAsync(request);
-
-            if (response.IsSuccessStatusCode)
+            var value = new Anwser
             {
-
-                var test = await response.Content.ReadAsAsync<RootObject>();
-                return test;
-            }
-            else
+                data = anwser.answer,
+                name = veld
+            };
+            var data = new Body
             {
-                return null;
-            }
+                challengeId = ChallengeTwo.id
+            };
+
+            data.values = new List<Anwser>();
+            data.values.Add(value);
+
+            var client = new RestClient("http://htf2018.azurewebsites.net");
+            var request = new RestRequest("challenges/{id}", Method.POST);
+            request.AddUrlSegment("id", ChallengeTwo.id);
+            request.AddJsonBody(data);
+            request.AddHeader("htf-identification", "ODc2ZjM2NjYtZGUyNy00ZDczLThkN2QtOTY4ZTA2NzY3MGMy");
+
+            IRestResponse response = client.Execute(request);
+            var content = response.Content;
+
         }
 
-        public IActionResult One()
+        public async Task GetTwo()
         {
-            var test = GetOne();
-            ViewData["test"] = test;
-            return View(test);
+            var client = new RestClient("http://htf2018.azurewebsites.net");
+            var request = new RestRequest("challenges/{id}", Method.GET);
+            request.AddUrlSegment("id", "593bc0a2e0dfdc53b239bc2a96ab0fd5");
+            request.AddHeader("htf-identification", "ODc2ZjM2NjYtZGUyNy00ZDczLThkN2QtOTY4ZTA2NzY3MGMy");
+
+            IRestResponse<ResponseGet> response = client.Execute<ResponseGet>(request);
+            ChallengeTwo = response.Data;
+        }
+
+        public void SolveChallengeTwo(Two obj)
+        {
+            obj.values = new List<String>();
+            var som = 0;
+
+            foreach (var i in ChallengeTwo.question.inputValues)
+            {
+                obj.values.Append(i.data);
+                som += int.Parse(i.data);
+            }
+
+            obj.question = ChallengeTwo.description;
+            obj.answer = som.ToString();
+        }
+
+        public async Task<IActionResult> Two()
+        {
+            await GetTwo();
+            var obj = new Two();
+            SolveChallengeTwo(obj);
+            System.Threading.Thread.Sleep(11000);
+            await PostTwo(obj,"sum");
+            return View(obj);
         }
     }
 }
